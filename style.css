@@ -1,0 +1,428 @@
+/* === Base === */
+body {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    overflow: hidden;
+    touch-action: none;
+    background: radial-gradient(circle at center, #1e3a8a 0%, #0f172a 50%, #000000 100%);
+    background-size: 200% 200%;
+    animation: gradientBG 20s ease infinite;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* === Stars === */
+.stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 130px 80px, #ffffff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+/* === Bubble === */
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow:
+        inset 0 0 20px rgba(255, 255, 255, 0.4),
+        0 0 15px rgba(255, 255, 255, 0.2),
+        0 0 0 2px rgba(255,255,255,0.8);
+    transition: transform 0.1s;
+    user-select: none;
+    will-change: transform, top;
+    font-family: 'Yatra One', cursive;
+    text-align: center;
+    line-height: 1.1;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.bubble:active {
+    transform: scale(0.95);
+}
+
+/* === Enhanced Burst Animation === */
+@keyframes burst {
+    0% { transform: scale(1); opacity: 1; filter: brightness(1.5); }
+    15% { transform: scale(1.4); opacity: 1; filter: brightness(2.5); }
+    30% { transform: scale(1.2); opacity: 0.9; filter: brightness(2); }
+    50% { transform: scale(1.6); opacity: 0.6; filter: brightness(3); }
+    100% { transform: scale(0); opacity: 0; filter: brightness(0.5); }
+}
+.bursting {
+    animation: burst 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    pointer-events: none;
+}
+
+/* === Enhanced Particle Explosion === */
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 15;
+    animation: particle-fly 0.9s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    box-shadow: 0 0 10px currentColor;
+}
+@keyframes particle-fly {
+    0% { transform: translate(0, 0) scale(1.2); opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
+
+/* === Ring Burst Effect === */
+.ring-burst {
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid;
+    pointer-events: none;
+    z-index: 14;
+    animation: ringExpand 0.6s ease-out forwards;
+}
+@keyframes ringExpand {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+}
+
+/* === Shockwave Effect === */
+.shockwave {
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 13;
+    animation: shockwaveExpand 0.5s ease-out forwards;
+}
+@keyframes shockwaveExpand {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.6;
+        box-shadow: 0 0 0 0 currentColor;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(6);
+        opacity: 0;
+        box-shadow: 0 0 40px 10px currentColor;
+    }
+}
+
+/* === Sparkle Trail === */
+.sparkle {
+    position: absolute;
+    width: 6px; height: 6px;
+    pointer-events: none;
+    z-index: 16;
+    animation: sparkleAnim 0.6s ease-out forwards;
+}
+.sparkle::before, .sparkle::after {
+    content: '';
+    position: absolute;
+    background: currentColor;
+}
+.sparkle::before {
+    width: 100%; height: 2px;
+    top: 50%; left: 0;
+    transform: translateY(-50%);
+}
+.sparkle::after {
+    width: 2px; height: 100%;
+    left: 50%; top: 0;
+    transform: translateX(-50%);
+}
+@keyframes sparkleAnim {
+    0% { transform: scale(0) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.5) rotate(90deg); opacity: 0.8; }
+    100% { transform: scale(0) rotate(180deg); opacity: 0; }
+}
+
+/* === Flower Rain === */
+.flower {
+    position: absolute;
+    top: -50px;
+    pointer-events: none;
+    z-index: 50;
+    animation: fall linear forwards;
+    font-size: 28px;
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+}
+@keyframes fall {
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* === Floating Text OM === */
+.float-text {
+    position: absolute;
+    color: #fcd34d;
+    font-weight: 800;
+    font-size: 2rem;
+    animation: floatUp 0.9s cubic-bezier(0,0,0.2,1) forwards;
+    pointer-events: none;
+    z-index: 20;
+    text-shadow: 0 0 15px rgba(251, 191, 36, 0.9), 0 0 30px rgba(251, 191, 36, 0.4);
+    font-family: 'Yatra One', cursive;
+}
+@keyframes floatUp {
+    0% { opacity: 0; transform: translateY(10px) scale(0.3) rotate(-10deg); }
+    25% { opacity: 1; transform: translateY(0) scale(1.4) rotate(5deg); }
+    50% { transform: translateY(-20px) scale(1.1) rotate(-3deg); }
+    100% { opacity: 0; transform: translateY(-70px) scale(0.8) rotate(0deg); }
+}
+
+/* === Counter Score Pop Animation === */
+@keyframes scorePop {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.3); }
+    60% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+.score-pop {
+    animation: scorePop 0.3s ease-out;
+}
+
+/* === Milestone Message (only flower rain, no numbers) === */
+.milestone-msg {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: rgba(15, 23, 42, 0.95);
+    padding: 30px 60px;
+    border-radius: 30px;
+    box-shadow: 0 0 50px rgba(251, 191, 36, 0.4);
+    text-align: center;
+    z-index: 100;
+    border: 3px solid #f59e0b;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: none; /* Hidden - we only do flower rain now */
+}
+.milestone-msg.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* === Dark Glassmorphism === */
+.glass-panel-dark {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* === Slider === */
+input[type=range] { -webkit-appearance: none; background: transparent; }
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 22px; width: 22px;
+    border-radius: 50%;
+    background: #f59e0b;
+    cursor: pointer;
+    margin-top: -9px;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+    border: 2px solid #fff;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%; height: 4px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+}
+
+/* === Custom Font Sizes === */
+.text-sitaram { font-size: clamp(16px, 4vw, 26px); font-weight: bold; }
+.text-ram { font-size: clamp(20px, 6vw, 36px); font-weight: bold; }
+.text-radha { font-size: clamp(18px, 5vw, 30px); font-weight: bold; }
+
+/* === Counter Glow === */
+@keyframes glowBox {
+    0% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); border-color: rgba(245, 158, 11, 0.5); }
+    50% { box-shadow: 0 0 25px rgba(245, 158, 11, 0.6); border-color: rgba(245, 158, 11, 1); }
+    100% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); border-color: rgba(245, 158, 11, 0.5); }
+}
+.glow-border { animation: glowBox 3s infinite; }
+
+/* === Top Bar === */
+#topBar {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#topBar.hidden-bar {
+    transform: translateY(-120%);
+}
+
+/* === Floating Menu Button === */
+#menuBtn {
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 60;
+}
+.menu-top-pos {
+    position: fixed;
+    top: 1rem; right: 1rem;
+}
+.menu-bottom-pos {
+    position: fixed;
+    bottom: 6rem;
+    right: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(245, 158, 11, 0.5) !important;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.3) !important;
+}
+
+/* === Options Menu === */
+#optionsContainer {
+    transition: all 0.3s ease;
+    z-index: 70;
+}
+.origin-top-right {
+    top: 4.5rem; right: 1rem;
+    transform-origin: top right;
+}
+.origin-bottom-right {
+    bottom: 10rem; right: 1.5rem;
+    top: auto !important;
+    transform-origin: bottom right;
+}
+
+/* === Stats Popup === */
+.stats-popup {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+.stats-popup.show {
+    opacity: 1;
+    pointer-events: all;
+}
+.stats-popup-inner {
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95));
+    border: 2px solid rgba(245, 158, 11, 0.5);
+    border-radius: 24px;
+    padding: 28px 24px;
+    width: 90%;
+    max-width: 360px;
+    box-shadow:
+        0 0 60px rgba(245, 158, 11, 0.2),
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    transform: scale(0.8) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.stats-popup.show .stats-popup-inner {
+    transform: scale(1) translateY(0);
+}
+.stats-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.stats-header .stats-icon {
+    font-size: 2.2rem;
+    color: #f59e0b;
+    display: block;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.6));
+}
+.stats-header h3 {
+    font-family: 'Yatra One', cursive;
+    font-size: 1.5rem;
+    color: #fbbf24;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+    margin: 0;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 16px 12px;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+}
+.stat-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(245, 158, 11, 0.4);
+}
+.stat-value {
+    font-family: 'Yatra One', cursive;
+    font-size: 1.8rem;
+    font-weight: bold;
+    background: linear-gradient(to bottom, #fbbf24, #d97706);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+    line-height: 1.2;
+}
+.stat-label {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+}
+.stats-close-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #0f172a;
+    border: none;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+}
+.stats-close-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+}
+.stats-close-btn:active {
+    transform: scale(0.98);
+}
+
+/* === Long Press Indicator on Counter === */
+#counterBox {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s;
+    position: relative;
+}
+#counterBox:active {
+    transform: scale(0.97);
+}
+.counter-long-press {
+    box-shadow: 0 0 40px rgba(245, 158, 11, 0.8) !important;
+    border-color: #f59e0b !important;
+}
